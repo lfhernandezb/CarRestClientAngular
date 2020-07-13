@@ -24,14 +24,14 @@
   <!--article-->
     <h3>Usuarios</h3>
     <div>
-      <label>Usuario nombre:
-        <input #usuarioNombre />
+      <label>Criterio:
+        <input #criteria />
       </label>
       <!-- (click) passes input value to add() and then clears the input -->
       <!--button (click)="add(usuarioName.value); usuarioName.value=''">
         add
       </button-->
-      <button (click)="search(usuarioNombre.value)">
+      <button (click)="onSearch(criteria.value)">
         search
       </button>
     </div>
@@ -46,20 +46,24 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let usuario of usuarioList">
+          <tr *ngFor="let usuario of collection | paginate: config">
             <td>{{ usuario.idUsuario }}</td>
             <td>{{ usuario.nombre }}</td>
             <td>{{ usuario.correo }}</td>
             <td>
-                <a href="#" onClick="detalleUsuario(<{$usuario.id}>); return false"><img src="images/detail.png" alt="" title="Detalle" border="0" width=16 height=16 /></a>
-                <a href="<{$receiver}>?do=VerVehiculos&id=<{$usuario.id}>"><img src="images/car.png" alt="" title="Ver Veh&iacute;culos" border=0 width=16 height=16 /></a>
-                <a href="<{$receiver}>?do=VerLogs&id=<{$usuario.id}>"><img src="images/log.png" alt="" title="Ver Logs" border=0 width=16 height=16 /></a>
+                <a href="#" (click)="detalleUsuario(usuario.idUsuario)"><img src="images/detail.png" alt="" title="Detalle" border="0" width=16 height=16 /></a>
+                <!--a href="<{$receiver}>?do=VerVehiculos&id={{ usuario.idUsuario }}"><img src="images/car.png" alt="" title="Ver Veh&iacute;culos" border=0 width=16 height=16 /></a-->
+                <!--a href="<{$receiver}>?do=VerLogs&id={{ usuario.idUsuario }}"><img src="images/log.png" alt="" title="Ver Logs" border=0 width=16 height=16 /></a-->
             </td>
           </tr>
         </tbody>
       </table>
     
-
+      <alert></alert>
+      
+      <!--pagination-controls (pageChange)="pageChange($event)" class="my-pagination"></pagination-controls-->
+      <pagination-controls [autoHide]="true" (pageChange)="pageChange($event)" class="my-pagination"></pagination-controls>
+      
   <!--/article-->
 <!--/section-->
 

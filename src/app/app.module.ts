@@ -7,8 +7,10 @@ import { UsuarioComponent } from './usuario/usuario.component';
 import { UsuarioListComponent } from './usuario-list/usuario-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from './layout/layout.module';
-
-import {enableProdMode} from '@angular/core';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ErrorInterceptorProvider } from './http.interceptor';
+import { AlertModule } from './_alert';
+//import {enableProdMode} from '@angular/core';
 
 @NgModule({
   declarations: [
@@ -20,9 +22,11 @@ import {enableProdMode} from '@angular/core';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    LayoutModule
+    LayoutModule,
+    NgxPaginationModule,
+    AlertModule
   ],
-  providers: [],
+  providers: [ErrorInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

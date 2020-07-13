@@ -1,0 +1,16 @@
+  627  git add README.md 
+  628  git init
+  629  git add README.md 
+  631  git add src
+  632  git status
+  633  git add pom.xml 
+  635  git status
+  636  git add README.md 
+  637  git status
+  639  git commit -m "primer commit, funcionando"
+  640  git remote add origin git@github.com:lfhernandezb/CarRestClientAngular.git
+  641  git push -u origin master
+  642  git push -u origin master
+  644  git push -u origin master
+  649  history | grep git
+
