@@ -1,0 +1,12 @@
+bugs
+
+pendientes
+
+detalle usuario
+detalle vehiculo
+agregar usuario
+agregar vehiculo
+mensaje info cuando no se encuentren registros en busqueda
+menu superior, acciones
+page not found
+animacion en trancisiones

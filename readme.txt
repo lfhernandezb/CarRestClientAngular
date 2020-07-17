@@ -1,9 +1,12 @@
 ng new car-rest-client
 cd car-rest-client/
+ng generate module usuarios
+cd usuarios/
 ng generate service usuario
 ng generate service usuarios
 ng generate component usuario
 ng generate component usuarios
+ng generate module usuarios-routing
 
 # instalar dependencia
 

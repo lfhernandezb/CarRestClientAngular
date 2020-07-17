@@ -26,7 +26,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 } else if (error instanceof Error){
                     errMsg = error.message;
 				}
-				//console.log("errMsg: "+errMsg);
+				console.log("errMsg: "+errMsg);
                 return throwError(errMsg);
             }));
     }
