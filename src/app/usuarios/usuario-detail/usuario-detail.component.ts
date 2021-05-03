@@ -3,6 +3,7 @@ import { UsuarioService } from '../usuario.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Usuario } from '../usuario';
+import { PaginationConfig } from '../../pagination-config';
 import { Observable } from 'rxjs';
 import { AlertService } from '../../_alert';
 
@@ -16,6 +17,8 @@ export class UsuarioDetailComponent implements OnInit {
   options: any;
   success: boolean;
   errorMessage: string;
+  pagConfig: PaginationConfig;
+  criteria: string;
 
   constructor(
     private usuarioService: UsuarioService,
@@ -26,12 +29,13 @@ export class UsuarioDetailComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log('OnInit')
+    this.pagConfig = new PaginationConfig();
     // para mensajes de error
     this.options = {
       autoclose: false,
       keepAfterRouteChange: false
     };
-   // se recibe como parametro el id de usuario desde usuario-list
+    // se recibe como parametro el id de usuario desde usuario-list
     let id = this.route.snapshot.paramMap.get('id');
     
     this.usuario = this.usuarioService.getUsuario(id).
@@ -47,7 +51,13 @@ export class UsuarioDetailComponent implements OnInit {
           //console.log("triggering error");
           this.alertService.error(this.errorMessage, this.options);
         }
+        
     );
+
+    this.pagConfig.currentPage = +this.route.snapshot.paramMap.get('currentPage');
+    this.pagConfig.numberOfPages = +this.route.snapshot.paramMap.get('numberOfPages');
+    this.pagConfig.totalItems = +this.route.snapshot.paramMap.get('totalItems');
+    this.criteria = this.route.snapshot.paramMap.get('criteria');
 
     /*
     this.usuarioService.getUsuario(1).subscribe((data)=>{
@@ -58,4 +68,14 @@ export class UsuarioDetailComponent implements OnInit {
     */
   }
 
+  gotoUsuarioList() {
+    // Pass along the hero id if available
+    // so that the HeroList component can select that hero.
+    // Include a junk 'foo' property for fun.
+    this.router.navigate(['/usuario-list', {
+      currentPage: this.pagConfig.currentPage, 
+      numberOfPages: this.pagConfig.numberOfPages, 
+      totalItems: this.pagConfig.totalItems,
+      criteria: this.criteria}]);
+  }
 }

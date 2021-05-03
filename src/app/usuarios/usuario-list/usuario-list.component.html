@@ -25,13 +25,13 @@
     <h3>Usuarios</h3>
     <div>
       <label>Criterio:
-        <input #criteria />
+        <input #seek [value]="criteria" />
       </label>
       <!-- (click) passes input value to add() and then clears the input -->
       <!--button (click)="add(usuarioName.value); usuarioName.value=''">
         add
       </button-->
-      <button (click)="onSearch(criteria.value)">
+      <button (click)="onSearch(seek.value)">
         search
       </button>
     </div>
@@ -46,12 +46,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let usuario of collection | paginate: config">
+          <tr *ngFor="let usuario of collection | paginate: pagConfig">
             <td>{{ usuario.idUsuario }}</td>
             <td>{{ usuario.nombre }}</td>
             <td>{{ usuario.correo }}</td>
             <td>
-                <a [routerLink]="['/usuario-detail', usuario.idUsuario]"><img src="images/detail.png" alt="" title="Detalle" border="0" width=16 height=16 /></a>
+                <a [routerLink]="['/usuario-detail', usuario.idUsuario, {currentPage: pagConfig.currentPage, numberOfPages: pagConfig.numberOfPages, totalItems: pagConfig.totalItems, criteria: seek.value}]"><img src="images/detail.png" alt="" title="Detalle" border="0" width=16 height=16 /></a>
                 <!--a href="<{$receiver}>?do=VerVehiculos&id={{ usuario.idUsuario }}"><img src="images/car.png" alt="" title="Ver Veh&iacute;culos" border=0 width=16 height=16 /></a-->
                 <!--a href="<{$receiver}>?do=VerLogs&id={{ usuario.idUsuario }}"><img src="images/log.png" alt="" title="Ver Logs" border=0 width=16 height=16 /></a-->
             </td>

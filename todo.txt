@@ -1,5 +1,7 @@
 bugs
 
+vuelta desde detalle usuario a lista usuario, ok 2021.05.02
+
 pendientes
 
 detalle usuario
@@ -9,4 +11,6 @@ agregar vehiculo
 mensaje info cuando no se encuentren registros en busqueda
 menu superior, acciones
 page not found
-animacion en trancisiones
+animacion en transiciones
+manejar sesion
+parametros de app en archivo

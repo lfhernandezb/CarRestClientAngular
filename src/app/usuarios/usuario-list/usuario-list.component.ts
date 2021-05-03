@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../usuario.service';
 import { Usuario } from '../usuario';
 import { AlertService } from '../../_alert';
+import { PaginationConfig } from '../../pagination-config';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -12,43 +13,58 @@ import { switchMap } from 'rxjs/operators';
   styleUrls: ['./usuario-list.component.css']
 })
 export class UsuarioListComponent implements OnInit {
-  config: any;
   options: any;
   collection: any;
   criteria: string;
   success: boolean;
   errorMessage: string;
-
+  pagConfig: PaginationConfig;
+  
   constructor(
     private usuarioService: UsuarioService, 
     private alertService: AlertService,
     private route: ActivatedRoute
-  ) { }
+  ) { 
+  }
   
   ngOnInit(): void {
     // para paginacion
-    this.config = {
-      currentPage: 0,
-      itemsPerPage: 10,
-      numberOfPages: 0,
-      totalItems: 0,
-      autoHide: true
-    };
+    this.pagConfig = new PaginationConfig();
+    this.pagConfig.itemsPerPage = 10;
+    this.pagConfig.autoHide = true;
+    // esta pagina podria estarse armando desde el boton 'back' en usuario-detail
+    // strCurrentPage: string;
+    
+    let strCurrentPage = this.route.snapshot.paramMap.get('currentPage');
+
+    if (strCurrentPage) {
+      // desde usuario-detail.... generamos los datos
+      // el signo + convierte de string a numero
+      this.pagConfig.currentPage = +strCurrentPage;
+      // this.pagConfig.itemsPerPage = 10;
+      this.pagConfig.numberOfPages = +this.route.snapshot.paramMap.get('numberOfPages');;
+      this.pagConfig.totalItems = +this.route.snapshot.paramMap.get('totalItems');;
+      // this.pagConfig.autoHide = true;
+      this.criteria = this.route.snapshot.paramMap.get('criteria');
+      
+      this.pageChange(this.pagConfig.currentPage);
+    }
+    
     // para mensajes de error
     this.options = {
       autoclose: false,
       keepAfterRouteChange: false
     };
-
+    
   }
 
   pageChange(newPage: number) {
-    this.config.currentPage = newPage;
+    this.pagConfig.currentPage = newPage;
     // eliminamos mensaje de error si estuviera desplegado
     this.alertService.clear();
 
     this.usuarioService.
-      listUsuarios(this.config.itemsPerPage * (newPage - 1), this.config.itemsPerPage, this.criteria).
+      listUsuarios(this.pagConfig.itemsPerPage * (newPage - 1), this.pagConfig.itemsPerPage, this.criteria).
       subscribe(
         (data)=>{
           //console.log(data);
@@ -115,9 +131,9 @@ export class UsuarioListComponent implements OnInit {
     // console.log("onSearch")
     this.success = true;
     this.criteria = criteria;
-    this.config.numberOfPages = 0;
-    this.config.totalItems = 0;
-    this.config.currentPage = 0;
+    this.pagConfig.numberOfPages = 0;
+    this.pagConfig.totalItems = 0;
+    this.pagConfig.currentPage = 0;
     this.collection = null;
 
     // eliminamos mensaje de error si estuviera desplegado
@@ -129,15 +145,15 @@ export class UsuarioListComponent implements OnInit {
       subscribe(
         (data)=>{
           console.log("count: "+data);
-          this.config.totalItems = data;
+          this.pagConfig.totalItems = +data;
           //console.log(this.usuarioList);
 
-          if (this.config.totalItems > 0) {
-            let paginationData = Number(this.config.totalItems / this.config.itemsPerPage);
-            this.config.numberOfPages = Number(paginationData.toFixed());
+          if (this.pagConfig.totalItems > 0) {
+            let paginationData = Number(this.pagConfig.totalItems / this.pagConfig.itemsPerPage);
+            this.pagConfig.numberOfPages = Number(paginationData.toFixed());
 
-            if (paginationData > this.config.numberOfPages) {
-              this.config.numberOfPages += 1;
+            if (paginationData > this.pagConfig.numberOfPages) {
+              this.pagConfig.numberOfPages += 1;
             }
           }
           else {
