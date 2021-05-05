@@ -1,12 +1,13 @@
 bugs
 
 vuelta desde detalle usuario a lista usuario, ok 2021.05.02
+los usuarios se repiten al buscar por marca o modelo de vehiculos tantas veces como hayan declarado vehiculos de esa marca o modelo
 
 pendientes
 
-detalle usuario
+detalle usuario, listar vehiculos ok
 detalle vehiculo
-agregar usuario
+agregar usuario, ok
 agregar vehiculo
 mensaje info cuando no se encuentren registros en busqueda
 menu superior, acciones

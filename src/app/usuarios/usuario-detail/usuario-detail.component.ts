@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../usuario.service';
+import { VehiculoService } from '../../vehiculos/vehiculo.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Usuario } from '../usuario';
@@ -14,6 +15,7 @@ import { AlertService } from '../../_alert';
 })
 export class UsuarioDetailComponent implements OnInit {
   usuario: any;
+  collection: any;
   options: any;
   success: boolean;
   errorMessage: string;
@@ -22,6 +24,7 @@ export class UsuarioDetailComponent implements OnInit {
 
   constructor(
     private usuarioService: UsuarioService,
+    private vehiculoService: VehiculoService, 
     private route: ActivatedRoute,
     private router: Router,
     private alertService: AlertService
@@ -66,6 +69,24 @@ export class UsuarioDetailComponent implements OnInit {
       console.log(this.usuario);
     });
     */
+    
+    // obtengo los vehiculos del usuario
+    this.vehiculoService.
+      listVehiculosUsuario(0, 10, id).
+      subscribe(
+        (data)=>{
+          //console.log(data);
+          this.collection = data;
+        },
+        (error) => {
+          console.log('oops', error);
+          this.success = false;
+          this.errorMessage = error;
+          console.log("triggering error");
+          this.alertService.error(this.errorMessage, this.options);
+        }
+    );
+
   }
 
   gotoUsuarioList() {

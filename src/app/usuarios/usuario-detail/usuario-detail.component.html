@@ -13,7 +13,35 @@
     <p>
       {{criteria}}
     </p>
-    <!--a href="{{article.url}}">Read full article</a-->
+    
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>A&ntilde;o</th>
+            <th>Combustible</th>
+            <th>Patente</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let vehiculo of collection">
+            <td>{{ vehiculo.modelo.marca.descripcion }}</td>
+            <td>{{ vehiculo.modelo.descripcion }}</td>
+            <td>{{ vehiculo.anio }}</td>
+            <td>{{ vehiculo.combustible.descripcion }}</td>
+            <td>{{ vehiculo.patente }}</td>
+            <td>
+                <!--a [routerLink]="['/vehiculo-detail', usuario.idUsuario, {currentPage: pagConfig.currentPage, numberOfPages: pagConfig.numberOfPages, totalItems: pagConfig.totalItems, criteria: seek.value}]"><img src="images/detail.png" alt="" title="Detalle" border="0" width=16 height=16 /></a-->
+                <!--a href="<{$receiver}>?do=VerVehiculos&id={{ usuario.idUsuario }}"><img src="images/car.png" alt="" title="Ver Veh&iacute;culos" border=0 width=16 height=16 /></a-->
+                <!--a href="<{$receiver}>?do=VerLogs&id={{ usuario.idUsuario }}"><img src="images/log.png" alt="" title="Ver Logs" border=0 width=16 height=16 /></a-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    
+    
     <alert></alert>
     
     <p>
