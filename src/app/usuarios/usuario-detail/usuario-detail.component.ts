@@ -72,7 +72,7 @@ export class UsuarioDetailComponent implements OnInit {
     
     // obtengo los vehiculos del usuario
     this.vehiculoService.
-      listVehiculosUsuario(0, 10, id).
+      listVehiculosUsuario(0, 10, +id).
       subscribe(
         (data)=>{
           //console.log(data);

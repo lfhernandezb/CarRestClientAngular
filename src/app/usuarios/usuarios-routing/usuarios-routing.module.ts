@@ -5,8 +5,6 @@ import { UsuarioDetailComponent } from '../usuario-detail/usuario-detail.compone
 import { UsuarioListComponent } from '../usuario-list/usuario-list.component';
 
 const usuariosRoutes: Routes = [
-  /*{ path: 'heroes', redirectTo: '/superheroes' },*/
-  /*{ path: 'hero/:id', redirectTo: '/superhero/:id' },*/
   { path: 'usuario-list',  component: UsuarioListComponent, data: { animation: 'usuarios' } },
   { path: 'usuario-detail/:id', redirectTo: '/usuario-detail/:id' },
   { path: 'usuario-detail/:id', component: UsuarioDetailComponent, data: { animation: 'usuario' } }
